@@ -1,0 +1,81 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+}
+
+/* Hide scrollbar on city selector tabs */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Subtle scrollbar for main content */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #CE1126;
+  border-radius: 3px;
+}
+
+/* Top picks horizontal scroll snapping */
+.top-picks-scroll {
+  scroll-snap-type: x mandatory;
+}
+.top-picks-scroll > * {
+  scroll-snap-align: start;
+}
+
+/* Gen Z foodie card dot-pattern overlay */
+.food-card-pattern::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(255,255,255,0.18) 1px, transparent 1px);
+  background-size: 18px 18px;
+  pointer-events: none;
+}
+
+/* Emoji glow drop shadow */
+.emoji-glow {
+  filter: drop-shadow(0 0 14px rgba(255, 190, 0, 0.55)) drop-shadow(0 2px 8px rgba(0,0,0,0.2));
+}
+
+/* Soft bounce on card hover */
+@keyframes soft-pop {
+  0% { transform: scale(1); }
+  60% { transform: scale(1.04); }
+  100% { transform: scale(1.02); }
+}
+.group:hover .card-emoji {
+  animation: soft-pop 0.25s ease-out forwards;
+}
+
+/* Shimmer pulse for rank badge */
+@keyframes badge-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(255, 214, 10, 0.5); }
+  50% { box-shadow: 0 0 0 5px rgba(255, 214, 10, 0); }
+}
+.rank-badge {
+  animation: badge-pulse 2.4s ease-in-out infinite;
+}
+
+/* Gradient text */
+.gradient-text {
+  background: linear-gradient(135deg, #FF6B6B, #FF8C42, #FFD60A);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}

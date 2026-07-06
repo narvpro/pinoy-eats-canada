@@ -1,0 +1,82 @@
+
+
+
+# Claude Code Prompt: Pinoy Eats Canada (Filipino Food Finder)
+
+Copy everything below into Claude Code.
+
+---
+
+Build a web app called **"Pinoy Eats Canada"** that helps people find the best Filipino restaurants and home-style Filipino food spots across major Canadian cities. Target audience: Filipino-Canadians craving home food, and non-Filipino Canadians curious about Filipino cuisine.
+
+## Tech Stack
+- React + Vite for the frontend
+- Tailwind CSS for styling
+- Store restaurant data as a local JSON file for now (no backend/database needed for v1) — structure it cleanly so it could later be swapped for a real API or CMS
+- Fully responsive (mobile-first, since most users will check this on their phone while deciding where to eat)
+
+## Cities to Support
+- **Toronto (default/landing city)**
+- Vancouver
+- Montreal
+- Calgary
+- Kelowna
+- Also add: Winnipeg, Edmonton, Ottawa (large Filipino communities) — structure the code so adding a new city later is just adding a JSON entry, not new components
+
+## Core Features
+
+### 1. City Selector
+- Prominent dropdown or tab-style selector at the top of the page
+- Defaults to **Toronto** on first load
+- Selected city persists in the URL (e.g. `/city/toronto`) so links can be shared directly
+- Remember the last selected city in localStorage for return visits
+
+### 2. Restaurant Listings
+Display as a responsive card grid. Each restaurant card should show:
+- Name
+- Neighborhood/area (e.g. "Scarborough", "Mississauga")
+- Specialty dishes (tags, e.g. Sisig, Lechon, Halo-halo, Sinigang, Lumpia, Pancit, Adobo)
+- Price range ($ / $$ / $$$)
+- Star rating (out of 5)
+- Short blurb (1-2 sentences on why it's good)
+- "Home-style" badge if it's a family-run/turo-turo style spot vs. a full restaurant
+- Google Maps link (just construct a Google Maps search URL from name + address, no API key needed for v1)
+- Placeholder image (use a food-themed placeholder or simple icon since we won't have real photos yet)
+
+### 3. Search & Filter
+- Text search by restaurant name or dish
+- Filter by dish/specialty tags (multi-select chips: Sisig, Lechon, Halo-halo, etc.)
+- Filter by price range
+- Sort by: Rating (default), Alphabetical, Price
+
+### 4. "Top Picks" Section
+- At the top of each city page, highlight the top 3-5 rated spots as a featured carousel or highlighted row before the full grid
+
+### 5. Restaurant Detail View
+- Clicking a card opens a detail view (modal or separate route) with:
+  - Full description
+  - Address + Google Maps embed/link
+  - Phone number (if available)
+  - Hours (if available)
+  - Full list of specialty dishes
+  - "Why it's a favorite" section
+
+### 6. Nice-to-haves (implement if time allows)
+- Dark/light mode toggle
+- "Suggest a restaurant" form (just captures input to console.log or localStorage for now, no backend)
+- Favorites/bookmark feature using localStorage (heart icon on cards)
+
+## Data
+Seed the JSON with **realistic, well-known Filipino restaurants** for each city (research actual popular Filipino restaurants in Toronto, Vancouver, Montreal, Calgary, and Kelowna where possible — e.g. well-known spots in Filipino enclaves like Scarborough/Mississauga in Toronto, or in Vancouver's Filipino community areas). Include at least 8-12 restaurants for Toronto and 4-8 for each other city. Clearly comment in the code that this seed data should be verified/updated with current, accurate details before going live.
+
+## Design Direction
+- Warm, appetizing color palette (think reds, yellows, warm oranges — evoke Filipino flag colors and food warmth) but keep it clean and modern, not kitschy
+- Clear typography, good contrast, generous whitespace
+- Filipino flag colors or subtle cultural motifs are welcome as accents (not overdone)
+
+## Deliverable
+- A working local dev setup (`npm run dev` should just work)
+- Clean component structure (e.g. `CitySelector`, `RestaurantCard`, `RestaurantGrid`, `RestaurantDetail`, `FilterBar`)
+- A README explaining how to run it and how to add a new city or restaurant to the JSON data
+
+Start by scaffolding the project, then build out the city selector and Toronto data first end-to-end before expanding to other cities.
