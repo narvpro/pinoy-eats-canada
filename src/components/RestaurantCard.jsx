@@ -1,3 +1,5 @@
+import { useState } from 'react'
+
 const SPECIALTY_EMOJI = {
   'Lechon':        '🐷',
   'Adobo':         '🫕',
@@ -90,11 +92,13 @@ function StarRating({ rating }) {
 }
 
 export default function RestaurantCard({ restaurant, isFavorite, toggleFavorite, onSelect, index = 0 }) {
+  const [imgError, setImgError] = useState(false)
   const emoji = SPECIALTY_EMOJI[restaurant.specialties[0]] || '🍽️'
   const gradient = SPECIALTY_GRADIENTS[restaurant.specialties[0]] || FALLBACK_GRADIENTS[index % FALLBACK_GRADIENTS.length]
   const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
     restaurant.name + ' ' + restaurant.address
   )}`
+  const hasImage = !!(restaurant.imageUrl && !imgError)
 
   return (
     <article
@@ -102,18 +106,34 @@ export default function RestaurantCard({ restaurant, isFavorite, toggleFavorite,
       onClick={() => onSelect(restaurant)}
     >
       {/* Card image area */}
-      <div className={`bg-gradient-to-br ${gradient} h-40 flex items-center justify-center relative overflow-hidden food-card-pattern`}>
-        {/* Soft glow blob behind emoji */}
-        <div className="absolute w-24 h-24 rounded-full bg-white/25 blur-2xl" />
-        <span className="card-emoji text-7xl relative z-10 emoji-glow">{emoji}</span>
+      <div className={`h-40 relative overflow-hidden ${hasImage ? '' : `bg-gradient-to-br ${gradient} food-card-pattern flex items-center justify-center`}`}>
+        {hasImage ? (
+          <>
+            <img
+              src={restaurant.imageUrl}
+              alt={restaurant.name}
+              className="w-full h-full object-cover"
+              onError={() => setImgError(true)}
+            />
+            {/* Bottom gradient overlay for text/badge readability */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/5 to-transparent" />
+            {/* Emoji badge */}
+            <span className="absolute bottom-2 left-3 text-xl emoji-glow drop-shadow-lg z-10">{emoji}</span>
+          </>
+        ) : (
+          <>
+            <div className="absolute w-24 h-24 rounded-full bg-white/25 blur-2xl" />
+            <span className="card-emoji text-7xl relative z-10 emoji-glow">{emoji}</span>
+          </>
+        )}
         {restaurant.homeStyle && (
-          <span className="absolute top-2 left-2 bg-white/90 text-orange-700 text-[11px] font-bold px-2 py-0.5 rounded-full shadow-sm">
+          <span className="absolute top-2 left-2 bg-white/90 text-orange-700 text-[11px] font-bold px-2 py-0.5 rounded-full shadow-sm z-10">
             🏠 Home-style
           </span>
         )}
         <button
           onClick={e => { e.stopPropagation(); toggleFavorite(restaurant.id) }}
-          className="absolute top-2 right-2 text-xl hover:scale-125 transition-transform duration-150 drop-shadow"
+          className="absolute top-2 right-2 text-xl hover:scale-125 transition-transform duration-150 drop-shadow z-10"
           aria-label={isFavorite ? 'Remove from favorites' : 'Add to favorites'}
           title={isFavorite ? 'Remove from favorites' : 'Save to favorites'}
         >
