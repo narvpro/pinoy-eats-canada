@@ -171,6 +171,9 @@ export default function CityPage({ favorites, toggleFavorite }) {
           Connecting the community, one meal at a time.
           Restaurant data is for discovery — verify details before visiting.
         </p>
+        <p className="text-white/50 text-xs mt-2">
+          Powered by <span className="text-white/80 font-semibold">AroundToHelp Inc.</span>
+        </p>
       </footer>
 
       {/* Modals */}
